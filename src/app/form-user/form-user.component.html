@@ -1,0 +1,73 @@
+<h1>Create Account</h1>
+<form class="w-50 mx-auto" #f="ngForm"> <!--#f pour declarer une variable 100% template--><!--retoune l'état de tout le form et la valeur de chaaque input-->
+  <div class="form-group">
+    <label>FirstName</label>
+    <input type="text" name="firstname" class="form-control" [(ngModel)]="user.firstName"
+           required minlength="3" pattern="[a-zA-Z]+$" #fn="ngModel">
+            <!--two way databinding/ ngModel: verifie la valeur de input + valideurs
+            {3-20}pattern de 3 à 20 caractères
+            + pour dire plusieurs caractères-->
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="fn.invalid && fn.touched">
+    <div *ngIf="fn.hasError('required')">Firstname is required</div>
+    <div *ngIf="fn.hasError('minlength')">Minlength is equal to 3</div>
+    <div *ngIf="fn.hasError('pattern')">Error pattern</div>
+  </div>
+  <div class="form-group">
+    <label>LastName</label>
+    <input type="text" name="lastname" class="form-control" [(ngModel)]="user.lastName" required minlength="3" pattern="[a-zA-Z]+$" #fn1="ngModel">
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="fn1.invalid && fn1.touched">
+    <div *ngIf="fn1.hasError('required')">Lastname is required</div>
+    <div *ngIf="fn1.hasError('minlength')">Minlength is equal to 3</div>
+    <div *ngIf="fn1.hasError('pattern')">Error pattern</div>
+  </div>
+  <div class="form-group">
+    <label>Profession</label>
+    <input type="text" name="profession" class="form-control" [(ngModel)]="user.profession" required  #fn2="ngModel">
+  </div>
+  <br>
+  <!--<div class="alert alert-danger" *ngIf="fn2.invalid && fn2.touched">
+    <div *ngIf="fn.hasError('required')">Profession is required</div>
+  </div>-->
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" class="form-control" [(ngModel)]="user.email" required pattern="[a-zA-Z0-9._-]+@gmail.com" #fn3="ngModel">
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="fn3.invalid && fn3.touched">
+    <div *ngIf="fn3.hasError('required')">Email is required</div>
+    <div *ngIf="fn3.hasError('pattern')">Input should end width @gmail.com</div>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" name="password" class="form-control" [(ngModel)]="user.password" required pattern="[a-zA-Z0-9]{8,}?" #fn4="ngModel">
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="fn4.invalid && fn4.touched">
+    <div *ngIf="fn4.hasError('required')">Password is required</div>
+    <div *ngIf="fn4.hasError('pattern')">Password should contain at least 8 caracters, should not contain accents and symbols</div>
+  </div>
+  <div class="form-group">
+    <label>BirthDate</label>
+    <input type="date" name="birthdate" class="form-control" [(ngModel)]="user.birthDate" required #fn="ngModel">
+  </div>
+  <br>
+  <!--<div class="alert alert-danger" *ngIf="fn.invalid && fn.touched">
+    <div *ngIf="fn.hasError('required')">BirthDate is required</div>
+  </div>-->
+  <div class="form-group">
+    <label>Picture</label>
+    <input type="text" name="picture" class="form-control" [(ngModel)]="user.picture" required #fn="ngModel">
+  </div>
+  <!--valeur:{{fn.value}}
+  valide ou pas:{{fn.valid}}-->
+
+  <br>
+  <button class="btn btn-outline-success" [disabled]="f.invalid" (click)="save()">Save</button> <!--property binding-->
+  &nbsp;
+  <button class="btn btn-outline-warning" (click)="f.reset()">Reset</button>
+  <!--<button class="btn btn-outline-warning" type="reset">Reset</button>-->
+</form>

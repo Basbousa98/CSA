@@ -1,0 +1,33 @@
+<h1>Login Form :D</h1>
+<form class="w-50 mx-auto" [formGroup]="myForm" (ngSubmit)="login(myForm)"> <!--property binding--><!--ngSubmit reliée à type submit dans save-->
+  <div class="form-group">
+    <label>Email</label>
+    <input type="text" class="form-control" formControlName="email"><!--correspond à l'email déclaré dans le ts-->
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
+    <div *ngIf="myForm.controls['email'].hasError('required')">Email required</div>
+    <div *ngIf="myForm.controls['email'].hasError('minLength')">msg error minLength</div>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" formControlName="psw">
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="myForm.controls['psw'].invalid && myForm.controls['psw'].touched">
+    <div *ngIf="myForm.controls['psw'].hasError('required')">Password is required</div>
+  </div>
+  <div class="form-group">
+    <label>Confirm</label>
+    <input type="password" class="form-control" formControlName="confirmPsw">
+  </div>
+  <br>
+  <div class="alert alert-danger" *ngIf="myForm.controls['psw'].value!=myForm.controls['confirmPsw'].value
+    && myForm.controls['confirmPsw'].dirty">Please give a valid password</div><!--dirty: 9a3ed yekteb-->
+  <br>
+  <button class="btn btn-outline-success" type="submit" [disabled]="myForm.invalid">Login</button>
+  &nbsp;
+  <button class="btn btn-outline-warning" type="reset">Reset</button>
+</form>
+{{myForm.status |json}}<br>
+{{myForm.value |json}}
