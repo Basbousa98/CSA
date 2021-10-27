@@ -1,0 +1,90 @@
+<h1>Add Product</h1>
+<form class="w-50 mx-auto"> <!--property binding--><!--ngSubmit reliée à type submit dans save-->
+  <div [formGroup]="myForm">
+    <div class="form-group">
+      <label>Id Produit</label>
+      <input type="text" class="form-control" formControlName="id"><!--correspond à l'email déclaré dans le ts-->
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myForm.controls['id'].invalid && myForm.controls['id'].touched">
+      <div *ngIf="myForm.controls['id'].hasError('required')">Id required</div>
+    </div>
+
+    <div class="form-group">
+      <label>Code</label>
+      <input type="text" class="form-control" formControlName="code">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myForm.controls['code'].invalid && myForm.controls['code'].touched">
+      <div *ngIf="myForm.controls['code'].hasError('required')">Code required</div>
+      <div *ngIf="myForm.controls['code'].hasError('pattern')">Code must contain 8 caracters (no symbols)</div>
+    </div>
+
+    <div class="form-group">
+      <label>Libelle</label>
+      <input type="text" class="form-control" formControlName="libelle">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myForm.controls['libelle'].invalid && myForm.controls['libelle'].touched">
+      <div *ngIf="myForm.controls['libelle'].hasError('required')">Libelle required</div>
+      <div *ngIf="myForm.controls['libelle'].hasError('minLength')"> MinLength 3</div>
+    </div>
+
+    <div class="form-group">
+      <label>Prix unitaire</label>
+      <input type="text" class="form-control" formControlName="prix">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myForm.controls['prix'].invalid && myForm.controls['prix'].touched">
+      <div *ngIf="myForm.controls['prix'].hasError('required')">Prix unitaire required</div>
+      <div *ngIf="myForm.controls['prix'].hasError('pattern')">Prix unitaire should contain only numbers</div>
+    </div>
+  </div>
+
+  <div [formGroup]="myFormSupp"  *ngIf="myForm.valid"> <!--[hidden]="myForm.invalid" -->
+    <div class="form-group">
+      <label>Id détails produit</label>
+      <input type="text" class="form-control" formControlName="id">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myFormSupp.controls['id'].invalid && myFormSupp.controls['id'].touched">
+      Id détails produit required
+    </div>
+
+    <div class="form-group">
+      <label>Date création</label>
+      <input type="date" class="form-control" formControlName="dateCreation">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myFormSupp.controls['dateCreation'].invalid && myFormSupp.controls['dateCreation'].touched">
+      Date création required
+    </div>
+
+    <div class="form-group" [hidden]="myFormSupp.controls['dateCreation'].invalid">
+      <label>Date dernière modification</label>
+      <input type="date" class="form-control" formControlName="dateModif">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myFormSupp.controls['dateModif'].invalid && myFormSupp.controls['dateModif'].touched">
+      Date dernière modification
+    </div>
+
+    <div class="form-group">
+      <label>Catégorie produit</label>
+      <select class="form-select" aria-label="Default select example" formControlName="categorie">
+        <option value="1">Electomenager</option>
+        <option value="2">Alimentaire</option>
+        <option value="3">Quicaillerie</option>
+      </select>
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="myFormSupp.controls['categorie'].invalid && myFormSupp.controls['categorie'].touched">
+      Categorie produit required
+    </div>
+  </div>
+
+  <br>
+  <button class="btn btn-outline-warning" type="submit" disabled [hidden]="myForm.valid" >Suivant</button>
+  <button class="btn btn-outline-success" type="submit" [hidden]="myForm.invalid || myFormSupp.invalid">Ajouter</button>
+  &nbsp;
+</form>
